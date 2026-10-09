@@ -1,0 +1,75 @@
+---
+import { site } from "../../data/site";
+
+const bootLines = [
+  "SAN/OS Portfolio System · build 2026.1",
+  `Initializing user profile: ${site.name.toUpperCase().replace(" ", "_")}`,
+  "Role: AI-first full stack · structured finance + agents",
+  "Mounting proof cache ............ OK",
+  "Loading agent workflows ......... OK",
+  "Syncing distributed stack ....... OK",
+  "Desktop environment ............. READY",
+];
+---
+
+<div class="os-boot" id="os-boot" aria-labelledby="boot-title">
+  <div class="boot-scene">
+    <div class="boot-monitor">
+      <div class="boot-monitor__led" aria-hidden="true"></div>
+      <div class="boot-monitor__bezel">
+        <header class="boot-screen__top">
+          <span class="boot-screen__brand" id="boot-title">SAN/OS</span>
+          <span class="boot-screen__tag">PORTFOLIO WORKSTATION</span>
+        </header>
+
+        <div class="boot-identity boot-identity--top">
+          <p class="boot-identity__name">{site.name}</p>
+          <p class="boot-identity__role">{site.role}</p>
+          <p class="boot-identity__loc">{site.location}</p>
+        </div>
+
+        <div class="boot-screen">
+          <ol class="boot-log" id="boot-log" aria-live="polite">
+            {
+              bootLines.map((line, i) => (
+                <li
+                  class:list={["boot-log__line", i === 0 && "is-visible"]}
+                  data-boot-line
+                >
+                  {line}
+                </li>
+              ))
+            }
+          </ol>
+
+          <div class="boot-progress">
+            <div class="boot-progress__track">
+              <div class="boot-progress__fill" id="boot-progress-fill"></div>
+            </div>
+            <span class="boot-progress__label" id="boot-progress-label">0%</span>
+          </div>
+        </div>
+
+        <footer class="boot-actions">
+          <button
+            type="button"
+            class="boot-actions__primary"
+            id="boot-enter"
+            data-boot-action="enter"
+          >
+            Enter workspace
+          </button>
+          <button
+            type="button"
+            class="boot-actions__ghost"
+            id="boot-skip"
+            data-boot-action="enter"
+          >
+            Skip intro
+          </button>
+        </footer>
+      </div>
+      <p class="boot-hint">Esc to skip · double-click icons on desktop to open apps</p>
+    </div>
+  </div>
+</div>

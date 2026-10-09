@@ -1,0 +1,51 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  left?: string;
+  top?: string;
+  width?: string;
+  hidden?: boolean;
+}
+
+const {
+  id,
+  title,
+  left = "80px",
+  top = "60px",
+  width = "min(520px, calc(100vw - 24px))",
+  hidden = true,
+} = Astro.props;
+---
+
+<div
+  class="os-win"
+  data-win-id={id}
+  hidden={hidden}
+  style={`left: ${left}; top: ${top}; width: ${width};`}
+  role="dialog"
+  aria-labelledby={`win-title-${id}`}
+>
+  <div class="os-win__titlebar">
+    <div class="os-win__drag" data-drag-handle>
+      <span class="os-win__title" id={`win-title-${id}`}>{title}</span>
+    </div>
+    <div class="os-win__controls">
+      <button
+        type="button"
+        class="os-win__btn"
+        data-win-min={id}
+        aria-label={`Minimize ${title}`}>_</button
+      >
+      <button
+        type="button"
+        class="os-win__btn os-win__btn--close"
+        data-win-close={id}
+        aria-label={`Close ${title}`}>×</button
+      >
+    </div>
+  </div>
+  <div class="os-win__body">
+    <slot />
+  </div>
+</div>

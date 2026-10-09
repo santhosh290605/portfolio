@@ -1,0 +1,65 @@
+---
+import PixelWindow from "./PixelWindow.astro";
+import type { Project } from "../data/site";
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<section id="projects" class="stage">
+  <header class="stage__head" data-reveal>
+    <span class="stage__badge">LEVEL 05</span>
+    <h2>Products and projects I built</h2>
+    <p class="stage__sub">
+      Flagship multi-part builds plus focused side projects.
+    </p>
+  </header>
+
+  <ul class="project-stack">
+    {
+      projects.map((p, i) => (
+        <li class="tilt-card" data-tilt data-reveal style={`--i: ${i}`}>
+          <PixelWindow title={`${p.id}.cartridge`} class="win--white project-win">
+            <div class="project-win__head">
+              <div>
+                <p class="project-win__kind">{p.kind}</p>
+                <h3 class="project-win__name">{p.name}</h3>
+              </div>
+              {p.href && (
+                <a
+                  class="project-win__link"
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  GitHub
+                </a>
+              )}
+            </div>
+            <p class="project-win__story">{p.story}</p>
+            {p.parts && p.parts.length > 0 && (
+              <ul class="project-win__parts">
+                {p.parts.map((part) => (
+                  <li>{part}</li>
+                ))}
+              </ul>
+            )}
+            <ul class="project-win__list">
+              {p.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+            <ul class="chips project-win__tags">
+              {p.tags.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+          </PixelWindow>
+        </li>
+      ))
+    }
+  </ul>
+</section>
